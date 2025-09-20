@@ -1,0 +1,43 @@
+diff --git a/common/ascension_perks/00_ascension_perks.txt b/common/ascension_perks/00_ascension_perks.txt
+deleted file mode 100644
+index e69de29..0000000
+--- a/common/ascension_perks/00_ascension_perks.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# Removed broken ascension perks file that caused parsing errors on Stellaris 4.0
+-# TODO: Reimplement custom ascension perks in a compatible format
+-
+diff --git a/common/ascension_perks/00_ascension_perks_stub.txt b/common/ascension_perks/00_ascension_perks_stub.txt
+new file mode 100644
+index 0000000..cafe123
+--- /dev/null
++++ b/common/ascension_perks/00_ascension_perks_stub.txt
+@@
++# 00_ascension_perks_stub.txt
++# Stub to avoid crash — original 00_ascension_perks.txt was removed due to syntax errors.
++# This file intentionally contains no perks.
++
++# Example (for later reimplementation):
++# ap_example = {
++#     potential = { }
++#     allow = { }
++#     on_enabled = { }
++#     ai_weight = { weight = 0 }
++#     modifier = { }
++# }
+diff --git a/localisation/english/warhammer_economic_categories_l_english.yml b/localisation/english/warhammer_economic_categories_l_english.yml
+new file mode 100644
+index 0000000..deadbeef
+--- /dev/null
++++ b/localisation/english/warhammer_economic_categories_l_english.yml
+@@
++l_english:
++ planet_administrators: "Administrators"
++ planet_military_artisans: "Military Artisans"
++ planet_electronics_manufacturers: "Electronics Manufacturers"
++ planet_truth_preachers: "Truth Preachers"
++ planet_seers: "Seers"
++
++# Safe fallback placeholders (some jobs/buildings expect them)
++ planet_administrators_produces: "Administrators"
++ planet_military_artisans_produces: "Military Artisans"
