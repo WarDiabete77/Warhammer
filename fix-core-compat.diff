@@ -1,0 +1,65 @@
+diff --git a/common/deposits/00_warhammer_deposits.txt b/common/deposits/00_warhammer_deposits.txt
+--- a/common/deposits/00_warhammer_deposits.txt
++++ b/common/deposits/00_warhammer_deposits.txt
+@@
+-    is_for_colonizeable = yes
++    # is_for_colonizeable removed in Stellaris 3.0+, no longer valid
+diff --git a/common/deposits/02_sr_deposits.txt b/common/deposits/02_sr_deposits.txt
+--- a/common/deposits/02_sr_deposits.txt
++++ b/common/deposits/02_sr_deposits.txt
+@@
+-    is_for_colonizeable = no
++    # is_for_colonizeable removed in Stellaris 3.0+, no longer valid
+diff --git a/common/prescripted_countries/00_prescripted_countries.txt b/common/prescripted_countries/00_prescripted_countries.txt
+--- a/common/prescripted_countries/00_prescripted_countries.txt
++++ b/common/prescripted_countries/00_prescripted_countries.txt
+@@
+-    flags = {
++    country_flags = {
+diff --git a/common/districts/00_districts.txt b/common/districts/00_districts.txt
+--- a/common/districts/00_districts.txt
++++ b/common/districts/00_districts.txt
+@@
+-    district_hive_1 = {
+-        # obsolete custom district, removed for Stellaris 4.0
+-    }
+-    district_nexus_1 = {
+-        # obsolete custom district, removed for Stellaris 4.0
+-    }
++    # district_hive_1 and district_nexus_1 were removed as they crash Stellaris 4.0
+diff --git a/common/traits/00_species_traits.txt b/common/traits/00_species_traits.txt
+--- a/common/traits/00_species_traits.txt
++++ b/common/traits/00_species_traits.txt
+@@
+-    trait_plantoid_radiotrophic = {
+-        # invalid in Stellaris 4.0
+-    }
+-    trait_sith_pure_blood = {
+-        # invalid custom trait removed
+-    }
++    # trait_plantoid_radiotrophic and trait_sith_pure_blood removed (invalid in Stellaris 4.0)
+diff --git a/common/councilor_types/00_councilors.txt b/common/councilor_types/00_councilors.txt
+--- a/common/councilor_types/00_councilors.txt
++++ b/common/councilor_types/00_councilors.txt
+@@
+-    civic_anglers = {
+-        # invalid in Stellaris 4.0
+-    }
+-    civic_idyllic_bloom = {
+-        # invalid in Stellaris 4.0
+-    }
+-    civic_ascensionists = {
+-        # invalid in Stellaris 4.0
+-    }
++    # civic_anglers, civic_idyllic_bloom, civic_ascensionists removed (invalid in Stellaris 4.0)
+diff --git a/user_empire_designs_v3.4.txt b/user_empire_designs_v3.4.txt
+--- a/user_empire_designs_v3.4.txt
++++ b/user_empire_designs_v3.4.txt
+@@
+-    traits = {
+-        "trait_sith_pure_blood"
+-    }
+-    civics = {
+-        "civic_idyllic_bloom"
+-    }
++    # removed invalid traits and civics from user empire designs (compatibility fix)
