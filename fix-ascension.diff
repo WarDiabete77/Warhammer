@@ -1,0 +1,39 @@
+diff --git a/common/ascension_perks/00_ascension_perks.txt b/common/ascension_perks/00_ascension_perks.txt.disabled
+similarity index 100%
+rename from common/ascension_perks/00_ascension_perks.txt
+rename to common/ascension_perks/00_ascension_perks.txt.disabled
+diff --git a/common/ascension_perks/00_ascension_perks_stub.txt b/common/ascension_perks/00_ascension_perks_stub.txt
+new file mode 100644
+index 0000000..cafe123
+--- /dev/null
++++ b/common/ascension_perks/00_ascension_perks_stub.txt
+@@
++# 00_ascension_perks_stub.txt
++# Stub to avoid crash — original 00_ascension_perks.txt had parsing errors on Stellaris 4.0.
++# We disabled the original file (moved to .disabled). This file intentionally
++# contains no perk overrides; restore and rework original perks for 4.0 compatibility later.
++
++# Example of a safe minimal perk (commented out for now) — use as reference:
++# ap_example = {
++#     potential = { }    # conditions for the perk to exist in the selection
++#     allow = { }        # conditions to unlock / choose
++#     on_enabled = { }   # what happens when perk is chosen
++#     ai_weight = { weight = 0 } # AI weight block
++#     modifier = { }
++# }
+diff --git a/localisation/english/warhammer_economic_categories_l_english.yml b/localisation/english/warhammer_economic_categories_l_english.yml
+new file mode 100644
+index 0000000..deadbeef
+--- /dev/null
++++ b/localisation/english/warhammer_economic_categories_l_english.yml
+@@
++l_english:
++ planet_administrators: "Administrators"
++ planet_military_artisans: "Military Artisans"
++ planet_electronics_manufacturers: "Electronics Manufacturers"
++ planet_truth_preachers: "Truth Preachers"
++ planet_seers: "Seers"
++
++# Additional placeholders (safe defaults)
++ planet_administrators_produces: "Administrators"
++ planet_military_artisans_produces: "Military Artisans"
