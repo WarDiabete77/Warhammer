@@ -1,21 +1,15 @@
-# fix_core_compat.ps1
-# Usage: powershell -ExecutionPolicy Bypass -File .\fix_core_compat.ps1
-# NOTE: run at repository root (where common/, prescripted_countries/, localisation/ exist)
-
+# fix_core_compat.ps1 (version corrigée)
 Set-StrictMode -Version Latest
 
-# Config
 $branch = "fix/core-compat-auto"
 $backupRoot = Join-Path (Get-Location) "disabled_for_4_0_backup"
 $repoRoot = Get-Location
 
-# Ensure git present
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Error "git n'est pas installé ou pas sur le PATH. Installe git avant d'exécuter ce script."
     exit 1
 }
 
-# Create backup dir
 New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
 
 function Backup-And-Move($path) {
@@ -33,11 +27,32 @@ function Backup-And-Move($path) {
     }
 }
 
+function Read-LinesAsArray($filePath) {
+    if (-not (Test-Path $filePath)) { return @() }
+    try {
+        $raw = Get-Content -Raw -Encoding UTF8 -ErrorAction Stop $filePath
+    } catch {
+        # fallback to non-raw read
+        $raw = (Get-Content -Encoding UTF8 -ErrorAction SilentlyContinue $filePath) -join "`n"
+    }
+    # split into lines (support CRLF and LF)
+    $lines = $raw -split "`r?`n"
+    return ,$lines   # ensure array even if single line
+}
+
+function Write-Lines($filePath, [string[]]$lines) {
+    # backup original
+    Copy-Item $filePath "$filePath.bak" -Force -ErrorAction SilentlyContinue
+    $lines -join "`n" | Out-File -FilePath $filePath -Encoding utf8
+}
+
 function Safe-ReplaceInFile($filePath, $pattern, $replacement) {
     if (-not (Test-Path $filePath)) { return }
-    $raw = Get-Content $filePath -Raw
-    $new = $raw -replace $pattern, $replacement
-    if ($new -ne $raw) {
+    $lines = Read-LinesAsArray $filePath
+    if ($lines.Length -eq 0) { return }
+    $content = $lines -join "`n"
+    $new = [regex]::Replace($content, $pattern, $replacement, 'IgnoreCase')
+    if ($new -ne $content) {
         Copy-Item $filePath "$filePath.bak" -Force
         $new | Out-File -FilePath $filePath -Encoding utf8
         Write-Host "Replaced in: $filePath"
@@ -46,62 +61,56 @@ function Safe-ReplaceInFile($filePath, $pattern, $replacement) {
 
 function CommentLinesMatching($filePath, [string]$regex) {
     if (-not (Test-Path $filePath)) { return }
-    $lines = Get-Content $filePath
+    $lines = Read-LinesAsArray $filePath
     $changed = $false
-    for ($i = 0; $i -lt $lines.Count; $i++) {
+    for ($i = 0; $i -lt $lines.Length; $i++) {
         if ($lines[$i] -match $regex) {
             if ($lines[$i] -notmatch '^\s*#') {
-                $lines[$i] = "# " + $lines[$i]
+                $lines[$i] = '# ' + $lines[$i]
                 $changed = $true
             }
         }
     }
     if ($changed) {
-        Copy-Item $filePath "$filePath.bak" -Force
-        $lines | Out-File -FilePath $filePath -Encoding utf8
+        Write-Lines $filePath $lines
         Write-Host "Commented matches in: $filePath"
     }
 }
 
 function CommentBlockByStart($filePath, [string]$startRegex) {
     if (-not (Test-Path $filePath)) { return }
-    $lines = Get-Content $filePath
+    $lines = Read-LinesAsArray $filePath
     $changed = $false
-    for ($i = 0; $i -lt $lines.Count; $i++) {
+    for ($i = 0; $i -lt $lines.Length; $i++) {
         if ($lines[$i] -match $startRegex) {
-            # start commenting from this line until matching braces balance
-            if ($lines[$i] -notmatch '^\s*#') { $lines[$i] = "# " + $lines[$i]; $changed = $true }
-            $depth = 0
-            # count braces on the start line
-            $depth += ([regex]::Matches($lines[$i], '{')).Count
-            $depth -= ([regex]::Matches($lines[$i], '}')).Count
+            if ($lines[$i] -notmatch '^\s*#') { $lines[$i] = '# ' + $lines[$i]; $changed = $true }
+            # count braces on start line (after adding comment it still contains braces)
+            $depth = ([regex]::Matches($lines[$i], '{')).Count - ([regex]::Matches($lines[$i], '}')).Count
             $j = $i + 1
-            while ($j -lt $lines.Count -and $depth -gt 0) {
-                if ($lines[$j] -notmatch '^\s*#') { $lines[$j] = "# " + $lines[$j]; $changed = $true }
+            while ($j -lt $lines.Length -and $depth -gt 0) {
+                if ($lines[$j] -notmatch '^\s*#') { $lines[$j] = '# ' + $lines[$j]; $changed = $true }
                 $depth += ([regex]::Matches($lines[$j], '{')).Count
                 $depth -= ([regex]::Matches($lines[$j], '}')).Count
                 $j++
             }
-            # continue scanning after j
             $i = $j - 1
         }
     }
     if ($changed) {
-        Copy-Item $filePath "$filePath.bak" -Force
-        $lines | Out-File -FilePath $filePath -Encoding utf8
+        Write-Lines $filePath $lines
         Write-Host "Commented blocks starting with regex '$startRegex' in $filePath"
     }
 }
 
-# 1) create branch
+# === Begin auto-fix ops ===
+
 git fetch origin
 git checkout -b $branch
 
-# 2) Move the broken ascension perks out (so it's not parsed)
+# Move broken ascension perks if present, create stub
 $ascPath = Join-Path $repoRoot "common\ascension_perks\00_ascension_perks.txt"
 if (Test-Path $ascPath) {
     Backup-And-Move $ascPath
-    # create a safe stub in its place
     $stub = Join-Path $repoRoot "common\ascension_perks\00_ascension_perks_stub.txt"
     if (-not (Test-Path $stub)) {
         @"
@@ -113,21 +122,26 @@ if (Test-Path $ascPath) {
     }
 }
 
-# 3) deposits: comment any 'is_for_colonizeable' lines in all files under common/deposits
+# deposits: comment 'is_for_colonizeable' occurrences
 Get-ChildItem -Path (Join-Path $repoRoot "common\deposits") -Filter *.txt -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
     CommentLinesMatching $_.FullName '(?i)is_for_colonizeable'
 }
 
-# 4) prescripted_countries: replace 'flags = ' with 'country_flags = ' and replace 'ruler = default'
+# prescripted_countries: change 'flags =' to 'country_flags =' and replace 'ruler = default'
 Get-ChildItem -Path (Join-Path $repoRoot "prescripted_countries") -Filter *.txt -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
-    $file = $_.FullName
-    # replace flags =  (only lines starting with optional whitespace + flags)
-    Safe-ReplaceInFile $file '(?m)^[ \t]*flags[ \t]*=' 'country_flags ='
-    # replace ruler = default with a simple ruler object
-    Safe-ReplaceInFile $file '(?m)^[ \t]*ruler[ \t]*=[ \t]*default[ \t]*$' 'ruler = { name = "Auto Ruler" species = "HUM" gender = male }'
+    Safe-ReplaceInFile $_.FullName '^[ \t]*flags[ \t]*=' 'country_flags ='
+    Safe-ReplaceInFile $_.FullName '^[ \t]*ruler[ \t]*=[ \t]*default[ \t]*$' 'ruler = { name = "Auto Ruler" species = "HUM" gender = male }'
 }
 
-# 5) councilors: comment lines that mention invalid civics found in logs (conservative)
+# comment common bad districts/district refs
+$unknownDistricts = @("district_hive_1","district_hive_2","district_hive_3","district_nexus_1","district_nexus_2")
+Get-ChildItem -Path $repoRoot -Include *.txt -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
+    foreach ($d in $unknownDistricts) {
+        CommentLinesMatching $_.FullName ("(?i)\b" + [regex]::Escape($d) + "\b")
+    }
+}
+
+# comment invalid civics in councilors folder (conservative)
 $invalidCivics = @(
 "civic_anglers","civic_machine_anglers","civic_ascensionists","civic_catalytic_processing",
 "civic_crafters","civic_crusader_spirit","civic_death_cult","civic_eager_explorers",
@@ -139,25 +153,16 @@ $invalidCivics = @(
 "civic_individual_machine_predictive_analysis","civic_individual_machine_warbots","civic_individual_machine_replication"
 )
 Get-ChildItem -Path (Join-Path $repoRoot "common\governments\councilors") -Filter *.txt -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
-    $file = $_.FullName
     foreach ($c in $invalidCivics) {
-        CommentLinesMatching $file ("(?i)\b" + [regex]::Escape($c) + "\b")
+        CommentLinesMatching $_.FullName ("(?i)\b" + [regex]::Escape($c) + "\b")
     }
 }
 
-# 6) Move dangerous user empire designs out (backup) to avoid invalid traits/civics killing load
+# backup user empire designs if exists
 $userEmp = Join-Path $repoRoot "user_empire_designs_v3.4.txt"
 if (Test-Path $userEmp) { Backup-And-Move $userEmp }
 
-# 7) Comment references to unknown district/district_xxx across events/districts (conservative)
-$unknownDistricts = @("district_hive_1","district_hive_2","district_hive_3","district_nexus_1","district_nexus_2")
-Get-ChildItem -Path $repoRoot -Include *.txt -Recurse | ForEach-Object {
-    foreach ($d in $unknownDistricts) {
-        CommentLinesMatching $_.FullName ("(?i)\b" + [regex]::Escape($d) + "\b")
-    }
-}
-
-# 8) Add localisation fallback file for economic categories (if not present)
+# add localisation fallback if missing
 $locDir = Join-Path $repoRoot "localisation\english"
 New-Item -ItemType Directory -Path $locDir -Force | Out-Null
 $locFile = Join-Path $locDir "warhammer_economic_categories_l_english.yml"
@@ -173,13 +178,12 @@ l_english:
     Write-Host "Created localisation fallback: $locFile"
 }
 
-# 9) Stage + commit
+# stage + commit
 git add -A
 $commitMsg = "Auto-fix(core): disable broken ascension perks, comment deprecated tokens, fix prescripted_countries flags/ruler, add localisation fallback"
 git commit -m $commitMsg 2>$null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Commit created on branch $branch."
-    # try to push (may ask credentials)
     git push origin $branch
     Write-Host "Attempted git push origin $branch (check output above for success)."
 } else {
