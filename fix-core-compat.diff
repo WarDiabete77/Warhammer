@@ -1,65 +1,63 @@
 diff --git a/common/deposits/00_warhammer_deposits.txt b/common/deposits/00_warhammer_deposits.txt
+index 1111111..2222222 100644
 --- a/common/deposits/00_warhammer_deposits.txt
 +++ b/common/deposits/00_warhammer_deposits.txt
-@@
+@@ -5,7 +5,7 @@ deposit = {
+     category = strategic
+     is_on_planet = yes
+     is_mining = yes
 -    is_for_colonizeable = yes
-+    # is_for_colonizeable removed in Stellaris 3.0+, no longer valid
-diff --git a/common/deposits/02_sr_deposits.txt b/common/deposits/02_sr_deposits.txt
---- a/common/deposits/02_sr_deposits.txt
-+++ b/common/deposits/02_sr_deposits.txt
-@@
--    is_for_colonizeable = no
-+    # is_for_colonizeable removed in Stellaris 3.0+, no longer valid
-diff --git a/common/prescripted_countries/00_prescripted_countries.txt b/common/prescripted_countries/00_prescripted_countries.txt
---- a/common/prescripted_countries/00_prescripted_countries.txt
-+++ b/common/prescripted_countries/00_prescripted_countries.txt
-@@
--    flags = {
-+    country_flags = {
-diff --git a/common/districts/00_districts.txt b/common/districts/00_districts.txt
---- a/common/districts/00_districts.txt
-+++ b/common/districts/00_districts.txt
-@@
--    district_hive_1 = {
--        # obsolete custom district, removed for Stellaris 4.0
--    }
--    district_nexus_1 = {
--        # obsolete custom district, removed for Stellaris 4.0
--    }
-+    # district_hive_1 and district_nexus_1 were removed as they crash Stellaris 4.0
-diff --git a/common/traits/00_species_traits.txt b/common/traits/00_species_traits.txt
---- a/common/traits/00_species_traits.txt
-+++ b/common/traits/00_species_traits.txt
-@@
--    trait_plantoid_radiotrophic = {
--        # invalid in Stellaris 4.0
--    }
--    trait_sith_pure_blood = {
--        # invalid custom trait removed
--    }
-+    # trait_plantoid_radiotrophic and trait_sith_pure_blood removed (invalid in Stellaris 4.0)
-diff --git a/common/councilor_types/00_councilors.txt b/common/councilor_types/00_councilors.txt
---- a/common/councilor_types/00_councilors.txt
-+++ b/common/councilor_types/00_councilors.txt
-@@
--    civic_anglers = {
--        # invalid in Stellaris 4.0
--    }
--    civic_idyllic_bloom = {
--        # invalid in Stellaris 4.0
--    }
--    civic_ascensionists = {
--        # invalid in Stellaris 4.0
--    }
-+    # civic_anglers, civic_idyllic_bloom, civic_ascensionists removed (invalid in Stellaris 4.0)
-diff --git a/user_empire_designs_v3.4.txt b/user_empire_designs_v3.4.txt
---- a/user_empire_designs_v3.4.txt
-+++ b/user_empire_designs_v3.4.txt
-@@
--    traits = {
--        "trait_sith_pure_blood"
--    }
--    civics = {
--        "civic_idyllic_bloom"
--    }
-+    # removed invalid traits and civics from user empire designs (compatibility fix)
++    is_for_colonizable = yes
+     resources = {
+         category = strategic
+     }
+diff --git a/prescripted_countries/00_imp_countries.txt b/prescripted_countries/00_imp_countries.txt
+index e69de29..3333333 100644
+--- a/prescripted_countries/00_imp_countries.txt
++++ b/prescripted_countries/00_imp_countries.txt
+@@ -28,7 +28,7 @@
+-   flags = { warhammer_imperium }
++   country_flags = { warhammer_imperium }
+ 
+-   ruler = default
++   ruler = { name = "Imperial Ruler" species = "HUM" gender = male }
+diff --git a/prescripted_countries/01_chaos_countries.txt b/prescripted_countries/01_chaos_countries.txt
+index e69de29..4444444 100644
+--- a/prescripted_countries/01_chaos_countries.txt
++++ b/prescripted_countries/01_chaos_countries.txt
+@@ -28,7 +28,7 @@
+-   flags = { warhammer_chaos }
++   country_flags = { warhammer_chaos }
+ 
+-   ruler = default
++   ruler = { name = "Chaos Lord" species = "HUM" gender = male }
+diff --git a/prescripted_countries/01_darkeldar_countries.txt b/prescripted_countries/01_darkeldar_countries.txt
+index e69de29..5555555 100644
+--- a/prescripted_countries/01_darkeldar_countries.txt
++++ b/prescripted_countries/01_darkeldar_countries.txt
+@@ -28,7 +28,7 @@
+-   flags = { warhammer_darkeldar }
++   country_flags = { warhammer_darkeldar }
+ 
+-   ruler = default
++   ruler = { name = "Archon" species = "ELF" gender = female }
+diff --git a/prescripted_countries/01_eldar_countries.txt b/prescripted_countries/01_eldar_countries.txt
+index e69de29..6666666 100644
+--- a/prescripted_countries/01_eldar_countries.txt
++++ b/prescripted_countries/01_eldar_countries.txt
+@@ -28,7 +28,7 @@
+-   flags = { warhammer_eldar }
++   country_flags = { warhammer_eldar }
+ 
+-   ruler = default
++   ruler = { name = "Farseer" species = "ELF" gender = female }
+diff --git a/prescripted_countries/01_necron_countries.txt b/prescripted_countries/01_necron_countries.txt
+index e69de29..7777777 100644
+--- a/prescripted_countries/01_necron_countries.txt
++++ b/prescripted_countries/01_necron_countries.txt
+@@ -28,7 +28,7 @@
+-   flags = { warhammer_necron }
++   country_flags = { warhammer_necron }
+ 
+-   ruler = default
++   ruler = { name = "Overlord" species = "NEC" gender = male }

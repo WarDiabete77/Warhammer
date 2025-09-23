@@ -1,4 +1,4 @@
-﻿agripinaa = {
+agripinaa = {
 	name = "Agripinaa"
 	adjective = "PRESCRIPTED_adjective_agripinaa"
 	spawn_enabled = always # yes / no / always
@@ -28,7 +28,7 @@
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_agripinaa }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_agripinaa }
 	planet_name = "PRESCRIPTED_planet_name_agripinaa"
 	planet_class = "pc_forgeee"
 	system_name = "PRESCRIPTED_system_name_agripinaa"
@@ -94,7 +94,7 @@ graia = {
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_graia }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_graia }
 	planet_name = "PRESCRIPTED_planet_name_graia"
 	planet_class = "pc_forge"
 	system_name = "PRESCRIPTED_system_name_graia"
@@ -160,7 +160,7 @@ lucius = {
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_lucius }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_lucius }
 	planet_name = "PRESCRIPTED_planet_name_lucius"
 	planet_class = "pc_forgee"
 	system_name = "PRESCRIPTED_system_name_lucius"
@@ -226,7 +226,7 @@ metalica = {
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_metalica }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_metalica }
 	planet_name = "PRESCRIPTED_planet_name_metalica"
 	planet_class = "pc_forgeee"
 	system_name = "PRESCRIPTED_system_name_metalica"
@@ -292,7 +292,7 @@ ryza = {
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_ryza }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_ryza }
 	planet_name = "PRESCRIPTED_planet_name_ryza"
 	planet_class = "pc_forgee"
 	system_name = "PRESCRIPTED_system_name_ryza"
@@ -358,7 +358,7 @@ stygies = {
 
 	ethic = "ethic_fanatic_materialist"
 	ethic = "ethic_xenophobe"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_stygies }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_stygies }
 	planet_name = "PRESCRIPTED_planet_name_stygies"
 	planet_class = "pc_forgee"
 	system_name = "PRESCRIPTED_system_name_stygies"
@@ -423,7 +423,7 @@ bakka = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_bakka }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_bakka }
 	planet_name = "PRESCRIPTED_planet_name_bakka"
 	planet_class = "pc_hive_tundra"
 	system_name = "PRESCRIPTED_system_name_bakka"
@@ -488,7 +488,7 @@ catachan = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_catachan }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_catachan }
 	planet_name = "PRESCRIPTED_planet_name_catachan"
 	planet_class = "pc_tropical"
 	system_name = "PRESCRIPTED_system_name_catachan"
@@ -553,7 +553,7 @@ cadia = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_cadia }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_cadia }
 	planet_name = "PRESCRIPTED_planet_name_cadia"
 	planet_class = "pc_fortress"
 	system_name = "PRESCRIPTED_system_name_cadia"
@@ -618,7 +618,7 @@ mordian = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_mordian }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_mordian }
 	planet_name = "PRESCRIPTED_planet_name_mordian"
 	planet_class = "pc_hive_continental_02"
 	system_name = "PRESCRIPTED_system_name_mordian"
@@ -683,7 +683,7 @@ krieg = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_krieg }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_krieg }
 	planet_name = "PRESCRIPTED_planet_name_krieg"
 	planet_class = "pc_hive_medium"
 	system_name = "PRESCRIPTED_system_name_krieg"
@@ -748,7 +748,7 @@ armageddon = {
 
 	ethic = "ethic_fanatic_xenophobe"
 	ethic = "ethic_militarist"
-country_flags = { humanoid human_empire human_colony ai_no_leave_fed the_armageddon }
+	flags = { humanoid human_empire human_colony ai_no_leave_fed the_armageddon }
 	planet_name = "PRESCRIPTED_planet_name_armageddon"
 	planet_class = "pc_hive_industrial"
 	system_name = "PRESCRIPTED_system_name_armageddon"

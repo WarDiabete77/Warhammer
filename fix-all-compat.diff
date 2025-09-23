@@ -1,0 +1,21 @@
+diff --git a/common/deposits/00_warhammer_deposits.txt b/common/deposits/00_warhammer_deposits.txt
+--- a/common/deposits/00_warhammer_deposits.txt
++++ b/common/deposits/00_warhammer_deposits.txt
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes
+@@
+-    is_for_colonizeable = yes
++    is_colonizable = yes

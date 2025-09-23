@@ -1,11 +1,11 @@
-﻿
+
 #########################
 ### ADVANCED RESOURCES ##
 #########################
 
 d_promethium_1 = {
 	station = shipclass_mining_station 
-# 	is_for_colonizeable = no
+	is_for_colonizeable = no
 	
 	resources = { 
 		category = orbital_mining_deposits
@@ -32,7 +32,7 @@ d_promethium_1 = {
 
 d_promethium_2 = {
 	station = shipclass_mining_station 
-# 	is_for_colonizeable = no
+	is_for_colonizeable = no
 	
 	resources = { 
 		category = orbital_mining_deposits
@@ -59,7 +59,7 @@ d_promethium_2 = {
 
 d_promethium_3 = {
 	station = shipclass_mining_station 
-# 	is_for_colonizeable = no
+	is_for_colonizeable = no
 	
 	resources = { 
 		category = orbital_mining_deposits
@@ -86,7 +86,7 @@ d_promethium_3 = {
 
 d_slaves = {
 	station = shipclass_mining_station 
-# 	is_for_colonizeable = no
+	is_for_colonizeable = no
 	
 	resources = { 
 		category = orbital_mining_deposits
@@ -105,7 +105,7 @@ d_slaves = {
 ###################
 
 d_promethium_mine = {
-# 	is_for_colonizeable = yes
+	is_for_colonizeable = yes
 	category = deposit_cat_rare
 
 	planet_modifier = {
@@ -128,7 +128,7 @@ d_promethium_mine = {
 }
 
 d_tiamet_beacon = {
-# 	is_for_colonizeable = yes
+	is_for_colonizeable = yes
 	category = deposit_cat_rare
 
 	potential = { always = no }
